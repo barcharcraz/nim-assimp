@@ -268,15 +268,15 @@ const
       aiProcess_FindInstances or aiProcess_ValidateDataStructure or
       aiProcess_OptimizeMeshes)
 
-{.push callconv: cdecl, dynlib: LibName.}
+{.push callconv: cdecl.}
 
-proc aiImportFile*(filename: cstring; flags: cint): PScene {.importc.}
+proc aiImportFile*(filename: cstring; flags: cint): PScene {.importc, dynlib:LibName.}
 proc aiImportFileFromMemory*(pBuffer: cstring; 
                             pLength, pFlags: uint32; 
-                            pHint: cstring): PScene {.importc.}
-proc aiEnableVerboseLogging*(d: bool) {.importc.}
-proc aiReleaseImport*(pScene: PScene) {.importc.}
-proc getError*(): cstring {.importc: "aiGetErrorString".}
+                            pHint: cstring): PScene {.importc, dynlib:LibName.}
+proc aiEnableVerboseLogging*(d: bool) {.importc,dynlib:LibName.}
+proc aiReleaseImport*(pScene: PScene) {.importc,dynlib:LibName.}
+proc getError*(): cstring {.importc: "aiGetErrorString", dynlib:LibName.}
 
 
 
@@ -284,11 +284,11 @@ proc getTexture*(material: PMaterial; kind: TTextureType; index: cint;
   path: ptr AIstring; mapping: ptr TTextureMapping = nil, uvIndex: ptr cint = nil;
   blend: ptr cfloat = nil; op: ptr TTextureOp = nil; 
   mapMode: ptr TTextureMapMode = nil; flags: ptr cint = nil): AIreturn {.
-  importc: "aiGetMaterialTexture".}
+  importc: "aiGetMaterialTexture", dynlib:LibName.}
 
 
-proc transpose*(some: ptr TMatrix4x4) {.importc: "aiTransposeMatrix4".}
-proc transpose*(some: ptr TMatrix3x3) {.importc: "aiTransposeMatrix3".}
+proc transpose*(some: ptr TMatrix4x4) {.importc: "aiTransposeMatrix4", dynlib:LibName.}
+proc transpose*(some: ptr TMatrix3x3) {.importc: "aiTransposeMatrix3", dynlib:LibName.}
 
 {.pop.}
 
