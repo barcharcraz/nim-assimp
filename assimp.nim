@@ -31,8 +31,8 @@ else:
   const LibName = "libassimp.so"
 
 const
-  AI_MAX_NUMBER_OF_COLOR_SETS = 4
-  AI_MAX_NUMBER_OF_TEXTURECOORDS = 4
+  AI_MAX_NUMBER_OF_COLOR_SETS = 0x8
+  AI_MAX_NUMBER_OF_TEXTURECOORDS = 0x8
   MAXLEN_AISTRING = 1024
 type
   PNode* = ptr TNode
