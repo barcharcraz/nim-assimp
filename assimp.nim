@@ -26,7 +26,7 @@ import unsigned
 #we assume only windows and linux exist
 #the .dynlib version can eaisly be added
 when defined(windows):
-  const LibName = "assimp.dll"
+  const LibName = "libassimp.dll"
 else:
   const LibName = "libassimp.so"
 

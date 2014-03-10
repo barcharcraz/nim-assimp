@@ -1,6 +1,6 @@
 [Package]
 name = "nim-assimp"
-version = "0.1"
+version = "0.1.1"
 author = "fowl"
 description = "Assorted wrappers and reusable libraries."
 license = "MIT"
