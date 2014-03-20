@@ -23,10 +23,10 @@ THE SOFTWARE.
 """
 
 import unsigned
-#we assume only windows and linux exist
-#the .dynlib version can eaisly be added
 when defined(windows):
   const LibName = "libassimp.dll"
+elif defined(macosx):
+  const LibName = "libassimp.dylib"
 else:
   const LibName = "libassimp.so"
 
