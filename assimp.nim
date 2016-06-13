@@ -24,7 +24,7 @@ THE SOFTWARE.
 
 import unsigned
 when defined(windows):
-  const LibName = "assimp.dll"
+  const LibName = "assimp(-vc130-mtd).dll"
 elif defined(macosx):
   const LibName = "libassimp.dylib"
 else:
@@ -46,7 +46,7 @@ type
     children*: ptr PNode
     meshCount*: cint
     meshes*: ptr cint
-  
+
   PMesh* = ptr TMesh
   TMesh* {.pure.} = object
     primitiveTypes*: cint
@@ -83,13 +83,13 @@ type
     lights*: ptr UncheckedArray[PLight]
     cameraCount*: cint
     cameras*: ptr UncheckedArray[PCamera]
-  
+
   PMaterial* = ptr TMaterial
   TMaterial* {.pure.} = object
     properties*: ptr PMaterialProperty
     propertyCount*: cint
     numAllocated*: cint
-  
+
   PAnimation* = ptr TAnimation
   TAnimation* {.pure.} = object
     name*: AIstring
@@ -99,7 +99,7 @@ type
     channels*: ptr PNodeAnim
     meshChannelCount*: cint
     meshChannels*: ptr PMeshAnim
-  
+
   PNodeAnim* = ptr TNodeAnim
   TNodeAnim* {.pure.} = object
     nodeName*: AIstring
@@ -111,32 +111,32 @@ type
     scalingKeys*: ptr TVectorKey
     preState*: TAnimBehavior
     posState*: TAnimBehavior
-  
+
   PMeshAnim* = ptr TMeshAnim
   TMeshAnim* {.pure.} = object
     name*: AIstring
     keyCount*: cint
     keys*: ptr TMeshKey
-  
+
   TAnimBehavior*{.size: sizeof(cint).} = enum
     AnimBehaviorDefault = 0, AnimBehaviorConstant = 1,
     AnimBehaviorLinear = 2, AnimBehaviorRepeat = 3
   TVectorKey* {.pure.} = object
     time*: cdouble
     value*: TVector3d
-  TQuatKey* = object 
+  TQuatKey* = object
     time*: cdouble
     value*: TQuaternion
   TMeshKey* = object
     time*: cdouble
     value*: cint
-  
+
   PCamera* = ptr TCamera
   TCamera* = object
     name*: AIstring
     position*, up*, lookat*: TVector3d
     horizontalFOV*, clipNear*, clipFar*, aspect*: cfloat
-    
+
   PLight* = ptr TLight
   TLight* = object
     name*: AIstring
@@ -154,14 +154,14 @@ type
   TLightSourceType* {.size: sizeof(cint).} = enum
     LightSource_Undefined = 0, LightSource_Directional = 1,
     LightSource_Point = 2, LightSource_Spot = 3
-  
+
   PTexture* = ptr TTexture
   TTexture* = object
     width*: cint
     height*: cint
     achFormatHint*: array[0..3, cchar]
     pcData*: ptr TTexel
-  
+
   PMaterialProperty* = ptr TMaterialProperty
   TMaterialProperty* = object
     key*: AIstring
@@ -170,31 +170,31 @@ type
     dataLength*: cint
     kind*: TPropertyTypeInfo
     data*: ptr char
-  
+
   TPropertyTypeInfo* {.size: sizeof(cint).} = enum
     aiPTI_Float = 0x1, aiPTI_String = 0x3,
     aiPTI_Integer = 0x4, aiPTI_Buffer = 0x5
-  
+
   PBone* = ptr TBone
   TBone* = object
     name: AiString
     numWeights*: cint
     weights*: ptr TVertexWeight
     offsetMatrix*: TMatrix4x4
-  
+
   TVertexWeight* = object
     vertexID*: cint
     weight*: cfloat
-  
+
   PFace* = ptr TFace
   TFace* = object
     indexCount*: cint
     indices*: ptr UncheckedArray[cint]
-  
+
   AIstring* = object
     length*: csize
     data*: array[0..MAXLEN_AISTRING-1, char]
-  
+
   AIreturn* {.size: sizeof(cint).} = enum
     ReturnOutOfMemory = -3, ReturnFailure = -1, ReturnSuccess = 0
   TTextureMapMode* {.size: sizeof(cint).} = enum
@@ -206,11 +206,11 @@ type
     TexMappingUV = 0, TexMappingSphere = 1, TexMappingCylinder = 2,
     TexMappingBox = 3, TexMappingPlane = 4, TexMappingOther = 5
   TTextureType* {.size: sizeof(cint).} = enum
-    TexNone = 0, TexDiffuse = 1, TexSpecular = 2, TexAmbient = 3, 
+    TexNone = 0, TexDiffuse = 1, TexSpecular = 2, TexAmbient = 3,
     TexEmissive = 4, TexHeight = 5, TexNormals = 6, TexShininess = 7,
-    TexOpacity = 8, TexDisplacement = 9, TexLightmap = 10, 
+    TexOpacity = 8, TexDisplacement = 9, TexLightmap = 10,
     TexReflection = 11, TexUnknown = 12
-  
+
   TTexel* = tuple[b, g, r, a: cuchar]
   TColor3d* = tuple[r, g, b: cfloat]
   TColor4d* = tuple[r, g, b, a: cfloat]
@@ -220,36 +220,36 @@ type
   TMatrix3x3* = array[0..8, cfloat]
   TPlane* = object
     a*, b*, c*, d*: cfloat
-  
+
   TPrimitiveType* {.size: sizeof(cint).} = enum
     aiPrimitiveType_POINT    = 0x1,
     aiPrimitiveType_LINE     = 0x2,
     aiPrimitiveType_TRIANGLE = 0x4,
     aiPrimitiveType_POLYGON  = 0x8
-  
+
 const
   aiProcess_CalcTangentSpace*: cint = 0x00000001
-  aiProcess_JoinIdenticalVertices*: cint = 0x00000002 
+  aiProcess_JoinIdenticalVertices*: cint = 0x00000002
   aiProcess_MakeLeftHanded*: cint = 0x00000004
   aiProcess_Triangulate*: cint = 0x00000008
-  aiProcess_RemoveComponent*: cint = 0x00000010 
+  aiProcess_RemoveComponent*: cint = 0x00000010
   aiProcess_GenNormals*: cint = 0x00000020
-  aiProcess_GenSmoothNormals*: cint = 0x00000040 
-  aiProcess_SplitLargeMeshes*: cint = 0x00000080 
-  aiProcess_PreTransformVertices*: cint = 0x00000100 
+  aiProcess_GenSmoothNormals*: cint = 0x00000040
+  aiProcess_SplitLargeMeshes*: cint = 0x00000080
+  aiProcess_PreTransformVertices*: cint = 0x00000100
   aiProcess_LimitBoneWeights*: cint = 0x00000200
-  aiProcess_ValidateDataStructure*: cint = 0x00000400 
-  aiProcess_ImproveCacheLocality*: cint = 0x00000800 
-  aiProcess_RemoveRedundantMaterials*: cint = 0x00001000 
+  aiProcess_ValidateDataStructure*: cint = 0x00000400
+  aiProcess_ImproveCacheLocality*: cint = 0x00000800
+  aiProcess_RemoveRedundantMaterials*: cint = 0x00001000
   aiProcess_FixInfacingNormals*: cint = 0x00002000
   aiProcess_SortByPType*: cint = 0x00008000
-  aiProcess_FindDegenerates*: cint = 0x00010000 
-  aiProcess_FindInvalidData*: cint = 0x00020000 
+  aiProcess_FindDegenerates*: cint = 0x00010000
+  aiProcess_FindInvalidData*: cint = 0x00020000
   aiProcess_GenUVCoords*: cint = 0x00040000
-  aiProcess_TransformUVCoords*: cint = 0x00080000 
-  aiProcess_FindInstances*: cint = 0x00100000 
-  aiProcess_OptimizeMeshes*: cint = 0x00200000 
-  aiProcess_OptimizeGraph*: cint = 0x00400000 
+  aiProcess_TransformUVCoords*: cint = 0x00080000
+  aiProcess_FindInstances*: cint = 0x00100000
+  aiProcess_OptimizeMeshes*: cint = 0x00200000
+  aiProcess_OptimizeGraph*: cint = 0x00400000
   aiProcess_FlipUVs*: cint = 0x00800000
   aiProcess_FlipWindingOrder*: cint = 0x01000000
 
@@ -273,8 +273,8 @@ const
 {.push callconv: cdecl.}
 
 proc aiImportFile*(filename: cstring; flags: cint): PScene {.importc, dynlib:LibName.}
-proc aiImportFileFromMemory*(pBuffer: cstring; 
-                            pLength, pFlags: uint32; 
+proc aiImportFileFromMemory*(pBuffer: cstring;
+                            pLength, pFlags: uint32;
                             pHint: cstring): PScene {.importc, dynlib:LibName.}
 proc aiEnableVerboseLogging*(d: bool) {.importc,dynlib:LibName.}
 proc aiReleaseImport*(pScene: PScene) {.importc,dynlib:LibName.}
@@ -282,9 +282,9 @@ proc getError*(): cstring {.importc: "aiGetErrorString", dynlib:LibName.}
 
 
 
-proc getTexture*(material: PMaterial; kind: TTextureType; index: cint; 
+proc getTexture*(material: PMaterial; kind: TTextureType; index: cint;
   path: ptr AIstring; mapping: ptr TTextureMapping = nil, uvIndex: ptr cint = nil;
-  blend: ptr cfloat = nil; op: ptr TTextureOp = nil; 
+  blend: ptr cfloat = nil; op: ptr TTextureOp = nil;
   mapMode: ptr TTextureMapMode = nil; flags: ptr cint = nil): AIreturn {.
   importc: "aiGetMaterialTexture", dynlib:LibName.}
 
@@ -305,6 +305,6 @@ proc hasNormals*(some: PMesh): bool {.inline.} = (some.vertexCount > 0 and
 
 converter toBool*(some: AIreturn): bool = (some == ReturnSuccess)
 
-proc `$`*(a: var AIstring): string = 
+proc `$`*(a: var AIstring): string =
   result = newString(a.length)
   copymem(addr result[0], addr a.data, a.length)
