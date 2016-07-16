@@ -43,9 +43,9 @@ type
     transformation*: TMatrix4x4
     parent*: PNode
     childrenCount*: cint
-    children*: ptr PNode
+    children*: ptr UncheckedArray[PNode]
     meshCount*: cint
-    meshes*: ptr cint
+    meshes*: ptr UncheckedArray[cint]
 
   PMesh* = ptr TMesh
   TMesh* {.pure.} = object
