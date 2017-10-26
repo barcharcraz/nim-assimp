@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
 
-import unsigned
 when defined(windows):
   const LibName = "assimp(-vc130-mt).dll"
 elif defined(macosx):
