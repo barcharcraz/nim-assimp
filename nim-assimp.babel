@@ -1,9 +1,8 @@
-[Package]
-name = "nim-assimp"
-version = "0.1.1"
-author = "fowl"
-description = "Assorted wrappers and reusable libraries."
-license = "MIT"
+# Package
+version     = "0.1.1"
+author      = "fowl"
+description = "Wrapper for assimp, Open Asset Import Library Repository. Loads 40+ 3D file formats into one unified and clean data structure."
+license     = "MIT"
 
-[Deps]
-Requires = "nimrod >= 0.9.3"
+# Deps 
+requires "nim >= 0.9.3"
